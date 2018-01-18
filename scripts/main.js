@@ -14,6 +14,7 @@ var squares = document.querySelectorAll(".square");  // assigns var to CSS value
 
 var pickedColor = colors[3];  //assignment of item 3 in array
 var colorDisplay = document.getElementById('colorDisplay'); // accessing colorDisplay Id in the DOM
+var messageDisplay = document.querySelector('#message'); // DOM span msg#
 
 colorDisplay.textContent = pickedColor; // updating the DOM element with the new information
 	
@@ -23,11 +24,23 @@ for(var i = 0; i < squares.length; i++) {
 		 
 		var clickedColor = this.style.backgroundColor;  // assignment of correct RGB color
 		if(clickedColor === pickedColor) { 
-			alert('correct!');
+			messageDisplay.textContent = "You are Correct!"; // accessing DOM span element to show msg when correct
+			changeColors(clickedColor); //calls the changeColors func below
 		} else {
-			alert('wrong!');
+			this.style.backgroundColor = "#232323"; //changes the color to the same as background if wrong
+			messageDisplay.textContent = "Try Again!"; // accessing DOM span element to show msg when wrong
 		}	
 	});
+}
+
+// function to change color of h1 and all other squares when the correct square is chosen
+
+function changeColors(color) {  //takes single arg of the color string 
+	// loop thru all squares..
+	for(var i =0; i < squares.length; i++) {
+	// then change all squares to match correct color
+	squares[i].style.backgroundColor = color;
+	}
 }
 
 
