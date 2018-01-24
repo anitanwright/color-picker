@@ -1,12 +1,63 @@
+var numSquares = 6;
 
 // calls function below to generate 6 random colors upon page load
-var colors = generateRandomColors(6);
+var colors = generateRandomColors(numSquares);
 
 var squares = document.querySelectorAll(".square");  // assigns var to CSS value of square
 var pickedColor = pickColor(); // this calls the pickColor func below
 var colorDisplay = document.getElementById('colorDisplay'); // accessing colorDisplay Id in the DOM
 var messageDisplay = document.querySelector('#message'); // accessing DOM span msg#
 var h1 = document.querySelector("h1"); // turing the h1 value the same color as clickedColor correct value
+var resetButton = document.querySelector('#reset'); // accessing the reset button in the DOM
+var easyBtn = document.querySelector("#easyBtn");
+var hardBtn = document.querySelector("#hardBtn");
+
+
+easyBtn.addEventListener('click', function (){
+	hardBtn.classList.remove('selected');
+	easyBtn.classList.add('selected');
+	numSquares = 3;
+	colors = generateRandomColors(numSquares);	
+	pickedColor = pickColor();
+	colorDisplay.textContent = pickedColor;
+	for(var i = 0; i < squares.length; i++) {
+		if (colors[i]){
+			squares[i].style.backgroundColor = colors[i];
+		}	else {
+			squares[i].style.display = 'none';
+		}
+	}
+});
+
+hardBtn.addEventListener('click', function (){
+	hardBtn.classList.add('selected');
+	easyBtn.classList.remove('selected');
+	numSquares = 6;
+	colors = generateRandomColors(numSquares);	
+	pickedColor = pickColor();
+	colorDisplay.textContent = pickedColor;
+	for(var i = 0; i < squares.length; i++) {
+		squares[i].style.backgroundColor = colors[i];
+		squares[i].style.display = 'block';
+	}
+});
+
+// DOM button to change colors upon click
+resetButton.addEventListener('click', function(){
+	//generate all new colors using generateRandomColors func below
+	colors = generateRandomColors(numSquares);
+	// pick a new random color from array
+	pickedColor = pickColor();
+	// change color disp to match picked color
+	colorDisplay.textContent = pickedColor;
+	this.textContent = "New Colors";
+	messageDisplay.textContent = "";
+	// change colors of squares
+	for(var i = 0; i < squares.length; i++) {  
+		squares[i].style.backgroundColor = colors[i]; 
+	}
+	h1.style.backgroundColor = "lavender";
+});
 
 
 colorDisplay.textContent = pickedColor; // updating the DOM element with the new information
@@ -18,6 +69,7 @@ for(var i = 0; i < squares.length; i++) {
 		var clickedColor = this.style.backgroundColor;  // assignment of correct RGB color
 		if(clickedColor === pickedColor) { 
 			messageDisplay.textContent = "You are Correct!"; // accessing DOM span element to show msg when correct
+			resetButton.textContent = "Play Again?" // reset to play again
 			changeColors(clickedColor); //calls the changeColors func below
 			h1.style.backgroundColor = clickedColor; // 
 		} else {
@@ -37,18 +89,18 @@ function changeColors(color) {  //takes single arg of the color string
 }
 // function to pick a random number within colors array and then use to access the color out of the array and return it (called at top of code)
 function pickColor(){
-	var random = Math.floor(Math.random() * colors.length) // we will use the length of the array to generate the color, saving to a var...
+	var random = Math.floor(Math.random() * colors.length); // we will use the length of the array to generate the color, saving to a var...
 	return colors[random];
 	// then use the var (random #) to access an element within the array at that index and returns it
 }
 
 function generateRandomColors(num){
 	// make an array based on original RGB 
-	var arr = []
+	var arr = [];
 	// repeat "num" times
 	for(var i = 0; i < num; i++) {
 		// get rand color and push to array with randomColor func below
-		arr.push(randomColor())
+		arr.push(randomColor());
 	}
 	// return the array to the DOM
 	return arr;
