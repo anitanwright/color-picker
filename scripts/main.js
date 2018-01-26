@@ -24,7 +24,7 @@ var modeButtons = document.querySelectorAll('.mode');
 init();
 
 function init(){
-	// mode button even listeners
+	// mode button event listeners
 	for (var i = 0; i < modeButtons.length; i++) {
 	modeButtons[i].addEventListener('click', function(){
 		modeButtons[0].classList.remove('selected');
