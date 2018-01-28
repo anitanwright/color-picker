@@ -1,4 +1,4 @@
-var numSquares = 6;
+var numSquares = 9;
 
 // calls function below to generate 6 random colors upon page load
 // var colors = generateRandomColors(numSquares);
@@ -29,14 +29,19 @@ function init(){
 	modeButtons[i].addEventListener('click', function(){
 		modeButtons[0].classList.remove('selected');
 		modeButtons[1].classList.remove('selected');
+		modeButtons[2].classList.remove('selected');
 		this.classList.add('selected');
-		this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
+		// this.textContent === "Easy" ? numSquares = 3: numSquares = 6;
 		
-		// if (this.textContent === 'Easy'){
-		// 	numSquares = 3;
-		// } else{
-		// 	numSquares = 6;
-		// }
+		if (this.textContent === 'Easy')
+			numSquares = 3;
+	    else
+	     if (this.textContent === 'Hard')
+			numSquares = 6;
+		else
+		 if (this.textContent === 'Expert') 
+			numSquares = 9;
+		
 		reset();
 	});
 }
